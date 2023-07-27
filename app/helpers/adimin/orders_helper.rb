@@ -1,0 +1,2 @@
+module Adimin::OrdersHelper
+end
