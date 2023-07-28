@@ -1,0 +1,12 @@
+<h2>顧客マイページ</h2>
+
+<%= link_to "登録情報の編集", public_edit_customer_path(@customer) %>
+
+<p>氏名: <%= @customer.name %></p>
+<p>カナ: <%= @customer.kana %></p>
+<p>郵便番号: <%= @customer.postal_code %></p>
+<p>住所: <%= @customer.address %></p>
+<p>電話番号: <%= @customer.phone_number %></p>
+<p>メールアドレス: <%= @customer.email %></p>
+
+<%= link_to "注文履歴の一覧", public_orders_path(@customer) %>
