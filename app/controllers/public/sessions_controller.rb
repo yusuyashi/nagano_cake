@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  
+  def create
+    super do |resource|
+      if resource.persisted?
+        redirect_to public_customer_path and return
+      end
+    end
+  end
+
+  
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
