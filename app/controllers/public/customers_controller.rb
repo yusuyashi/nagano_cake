@@ -22,7 +22,15 @@ class Public::CustomersController < ApplicationController
   end 
   
   def withdrawal
-  end 
+    # ユーザーを論理削除（is_deletedをtrueに設定）
+    current_customer.update(is_deleted: true)
+    # ログアウトする
+    sign_out current_customer
+    # 退会完了ページにリダイレクトするか、別途処理を行う場合はここに追加
+    redirect_to public_customers_confirmation_path, notice: "退会が完了しました。"
+  end
+  end
+ 
   
   def after_sign_up_redirect
     redirect_to public_customer_path(current_customer)

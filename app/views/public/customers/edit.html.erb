@@ -46,4 +46,6 @@
   <div class="actions">
     <%= f.submit "更新する" %>
   </div>
+  
+  <%= button_to "退会する", public_customers_withdrawal_path, method: :patch, data: { confirm: "本当に退会しますか？" }, class: "withdrawal-button" %>
 <% end %>

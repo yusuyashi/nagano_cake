@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  before_action :customer_state, only: [:create]
   
   def create
     super do |resource|
@@ -9,7 +10,30 @@ class Public::SessionsController < Devise::SessionsController
       end
     end
   end
+　
+　protected
 
+def customer_state
+ 
+  @customer = Customer.find_by(email: params[:customer][:email])
+  
+  return if !@customer
+ 
+  if @customer.valid_password?(params[:customer][:password])
+    if @customer.is_deleted
+      # is_deletedがtrueの場合、サインアップ画面にリダイレクトする
+      redirect_to new_customer_registration_path, alert: "アカウントが退会しています。"
+    else
+      # is_deletedがfalseの場合、createアクションを実行する
+      create
+    end
+  else
+    # ログインに失敗した場合、エラーメッセージを表示
+    flash.now[:alert] = "メールアドレスまたはパスワードが間違っています。"
+    render :new
+  end
+end
+end
   
   # before_action :configure_sign_in_params, only: [:create]
 
