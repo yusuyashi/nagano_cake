@@ -10,8 +10,8 @@ class Public::SessionsController < Devise::SessionsController
       end
     end
   end
-　
-　protected
+
+  protected
 
 def customer_state
  
@@ -32,7 +32,6 @@ def customer_state
     flash.now[:alert] = "メールアドレスまたはパスワードが間違っています。"
     render :new
   end
-end
 end
   
   # before_action :configure_sign_in_params, only: [:create]

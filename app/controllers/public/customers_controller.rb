@@ -1,4 +1,5 @@
 class Public::CustomersController < ApplicationController
+  before_action :authenticate_customer!, except: [:confirmation]
   def show
     @customer = current_customer 
     @orders = @customer.orders
@@ -29,7 +30,7 @@ class Public::CustomersController < ApplicationController
     # 退会完了ページにリダイレクトするか、別途処理を行う場合はここに追加
     redirect_to public_customers_confirmation_path, notice: "退会が完了しました。"
   end
-  end
+end
  
   
   def after_sign_up_redirect
@@ -41,4 +42,3 @@ class Public::CustomersController < ApplicationController
   def customer_params
     params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email)
   end
-end

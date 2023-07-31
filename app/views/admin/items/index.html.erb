@@ -1,0 +1,22 @@
+<h2>商品一覧</h2>
+<%= link_to "新規登録", new_admin_item_path, class: "btn btn-primary" %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>商品名</th>
+      <th>税抜き価格</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= item.name %></td>
+        <td><%= item.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @items %>

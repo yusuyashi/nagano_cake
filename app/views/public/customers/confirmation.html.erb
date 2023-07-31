@@ -1,10 +1,11 @@
 <h2>退会確認画面</h2>
 
-<p>以下のアカウントを退会しますか？</p>
+<p>本当に退会しますか？</p>
+<p>退会すると、会員登録情報や</p>
+<p>これまでの購入履歴が閲覧できなくなります。</p>
+<p>退会する場合は、「退会する」をクリックしてください。</p>
 
-<p>氏名: <%= @customer.full_name %></p>
-<p>カナ: <%= @customer.full_name_kana %></p>
-<p>メールアドレス: <%= @customer.email %></p>
+
 
 <%= link_to "キャンセル", public_customer_path %>
 <%= button_to "退会する", public_customers_withdrawal_path, method: :patch, data: { confirm: "本当に退会しますか？" }, class: "withdrawal-button" %>

@@ -1,0 +1,25 @@
+<h2>商品新規登録</h2>
+
+<%= form_with(model: @item, url: admin_items_path, local: true) do |f| %>
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :introduction %>
+    <%= f.text_area :introduction %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+
+  <%= f.submit "登録する" %>
+<% end %>
