@@ -5,7 +5,7 @@ class Admin::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-
+    
     if @item.save
       redirect_to admin_item_path(@item), notice: "商品を登録しました。"
     else
@@ -14,7 +14,6 @@ class Admin::ItemsController < ApplicationController
   end
   
   def index
-    @items = Item.all
     @items = Item.page(params[:page])
     
   end 
@@ -23,13 +22,22 @@ class Admin::ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end 
   
+  def edit
+    @item = Item.find(params[:id])
+  end
   
-  def confirm
-  end 
   
-  def complete
-  end 
-  
+  def update
+    @item = Item.find(params[:id])
+
+    if @item.update(item_params)
+      redirect_to admin_item_path(@item), notice: "商品情報が更新されました。"
+    else
+      render :edit
+    end
+  end
+
+
   def item_params
     params.require(:item).permit(:name, :introduction, :price, :image)
   end

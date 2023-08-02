@@ -1,0 +1,46 @@
+
+<h2>会員編集</h2>
+
+<%= form_with(model: @customer, url: admin_customer_path(@customer), local: true) do |f| %>
+  <div class="field">
+    <%= f.label :first_name, '氏名（姓）' %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name, '氏名（名）' %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_name_kana, 'ふりがな（姓）' %>
+    <%= f.text_field :first_name_kana %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name_kana, 'ふりがな（名）' %>
+    <%= f.text_field :last_name_kana %>
+  </div>
+
+  <div class="field">
+    <%= f.label :postal_code, '郵便番号' %>
+    <%= f.text_field :postal_code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address, '住所' %>
+    <%= f.text_area :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telephone_number, '電話番号' %>
+    <%= f.text_field :telephone_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, 'メールアドレス' %>
+    <%= f.text_field :email %>
+  </div>
+
+  <%= f.submit '更新する', class: 'btn btn-primary' %>
+<% end %>

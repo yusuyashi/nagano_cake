@@ -1,0 +1,14 @@
+<h2>商品詳細</h2>
+
+<% if @item.image.attached? %>
+  <%= image_tag @item.image %>
+<% else %>
+  <p>画像がありません</p>
+<% end %>
+
+<p><strong>商品名:</strong> <%= @item.name %></p>
+<p><strong>説明:</strong> <%= @item.introduction %></p>
+<p><strong>税込価格:</strong> <%= @item.price %></p>
+
+
+<%= link_to '編集', edit_admin_item_path(@item) %>

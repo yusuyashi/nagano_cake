@@ -1,8 +1,10 @@
 <h2>商品一覧</h2>
+
 <%= link_to "新規登録", new_admin_item_path, class: "btn btn-primary" %>
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>商品ID</th>
       <th>商品名</th>
       <th>説明</th>
       <th>価格</th>
@@ -11,7 +13,8 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td><%= item.name %></td>
+        <td><%= item.id %></td>
+        <td><%= link_to item.name, edit_admin_item_path(item) %></td>
         <td><%= item.introduction %></td>
         <td><%= item.price %></td>
       </tr>

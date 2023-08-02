@@ -1,0 +1,20 @@
+<h2>商品編集</h2>
+
+<%= form_with(model: @item, url: admin_item_path(@item), method: :patch, local: true) do |f| %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :introduction %>
+    <%= f.text_area :introduction %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+
+  <%= f.submit "更新する" %>
+<% end %>

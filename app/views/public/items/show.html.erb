@@ -1,0 +1,23 @@
+<h2>商品詳細</h2>
+
+<% if @item.image.attached? %>
+  <%= image_tag @item.image %>
+<% else %>
+  <p>画像がありません</p>
+<% end %>
+<p><strong>商品名:</strong> <%= @item.name %></p>
+<p><strong>説明:</strong> <%= @item.introduction %></p>
+<p><strong>価格:</strong> <%= @item.price %></p>
+
+<%= form_with(model: CartItem.new, url: public_cart_items_path, local: true) do |f| %>
+  <%= f.hidden_field :item_id, value: @item.id %>
+  <div class="field">
+    <%= f.label :quantity, "数量" %>
+    <%= f.select :quantity, options_for_select([1, 2, 3, 4, 5]) %>
+  </div>
+  <%= f.submit "カートに追加する", class: "btn btn-primary" %>
+<% end %>
+
+<% if flash[:alert] %>
+  <p class="alert alert-danger"><%= flash[:alert] %></p>
+<% end %>
