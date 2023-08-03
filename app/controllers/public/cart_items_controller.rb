@@ -26,9 +26,9 @@ class Public::CartItemsController < ApplicationController
     flash[:alert] = "カートに商品を追加できませんでした。数量を選択してください。"
     redirect_to public_item_path(@cart_item.item)
   end
-end
+  end
 
- def update
+  def update
     @cart_item = CartItem.find(params[:id])
     if @cart_item.update(cart_item_params)
       redirect_to public_cart_items_path, notice: "カートの商品を更新しました。"
