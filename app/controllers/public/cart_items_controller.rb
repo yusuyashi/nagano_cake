@@ -38,16 +38,20 @@ class Public::CartItemsController < ApplicationController
     end
   end
   
+  def destroy_all
+    current_customer.cart_items.destroy_all
+    redirect_to public_cart_items_path, notice: "カート内の全ての商品を削除しました。"
+  end
+
+
+  
   def destroy
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
     redirect_to public_cart_items_path, notice: "カート内商品を削除しました。"
   end
   
-  def destroy_all
-    CartItem.destroy_all
-    redirect_to public_cart_items_path, notice: "カート内の全ての商品を削除しました。"
-  end
+  
   
   private
 

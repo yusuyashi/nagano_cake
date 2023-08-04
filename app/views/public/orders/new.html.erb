@@ -1,0 +1,27 @@
+<h1>注文情報入力</h1>
+
+<%= form_with(model: @order, url: public_orders_confirm_path, local: true) do |f| %>
+  <!-- ここにフォームの記述を行います -->
+
+  <!-- 支払い方法選択 -->
+  <h3>支払い方法</h3>
+  <div>
+    <%= f.label :payment_method, "支払い方法" %>
+    <br>
+    <%= f.radio_button :payment_method, "credit_card" %>
+    <%= f.label :payment_method, "クレジットカード" %>
+    <br>
+    <%= f.radio_button :payment_method, "transfer" %>
+    <%= f.label :payment_method, "銀行振込" %>
+  </div>
+
+<h3>お届け先</h3>
+<div>
+  <p>氏名: <%= current_customer.full_name %></p>
+  <p>郵便番号: <%= current_customer.postal_code %></p>
+  <p>住所: <%= current_customer.address %></p>
+</div>
+
+
+  <%= f.submit "注文確認画面へ進む", class: "btn btn-primary" %>
+<% end %>

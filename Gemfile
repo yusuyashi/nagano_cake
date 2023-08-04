@@ -58,3 +58,4 @@ gem 'devise'
 gem 'will_paginate'
 gem 'kaminari','~> 1.2.1'
 gem "enum_help"
+gem 'pry-byebug'

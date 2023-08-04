@@ -9,7 +9,7 @@
     <th></th>
   </thead>
   <tbody>
-    <%= link_to "カートを空にする", public_cart_items_destroy_all_path, method: :delete, data: { confirm: "本当に全ての商品を削除しますか？" } %>
+    <%= link_to "カートを空にする", destroy_all_public_cart_items_path, method: :delete, data: { confirm: "本当に全ての商品を削除しますか？" } %>
     <% @cart_items.each do |cart_item| %>
       <tr>
         <td><%= cart_item.item.name %></td>
@@ -32,3 +32,5 @@
 
 <p>合計金額: <%= @total_price %></p>
 <%= link_to "買い物を続ける", public_items_path, class: "btn btn-primary" %>
+
+<%= link_to "注文情報入力画面に進む", new_public_order_path, class: "btn btn-primary" %>
