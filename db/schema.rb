@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_04_045812) do
+ActiveRecord::Schema.define(version: 2023_08_09_140037) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -90,11 +90,16 @@ ActiveRecord::Schema.define(version: 2023_08_04_045812) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
-# Could not dump table "items" because of following StandardError
-#   Unknown type 'attachement' for column 'image'
+  create_table "items", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "introduction", null: false
+    t.integer "price", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "order_details", force: :cascade do |t|
-    t.integer "orders_id", null: false
+    t.integer "order_id", null: false
     t.integer "item_id", null: false
     t.integer "quantity", null: false
     t.decimal "purchase_price_taxIncluded", null: false
@@ -107,7 +112,7 @@ ActiveRecord::Schema.define(version: 2023_08_04_045812) do
     t.string "shipping_address", null: false
     t.string "shipping_postal_code", null: false
     t.string "shipping_name", null: false
-    t.decimal "shipping_fee", null: false
+    t.integer "shipping_fee", null: false
     t.integer "payment_method", default: 0, null: false
     t.decimal "total_amount", null: false
     t.datetime "created_at", precision: 6, null: false

@@ -1,0 +1,31 @@
+<h1>管理者側注文詳細</h1>
+<p>注文ID: <%= @order.id %></p>
+<p>購入日時: <%= @order.created_at %></p>
+<p><strong>購入者:</strong> <%= @order.customer.full_name %></p>
+<p><strong>配送先住所:</strong> <%= @order.shipping_address %></p>
+<p><strong>支払い方法:</strong> <%= @order.payment_method %></p>
+
+<h2>注文商品一覧</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>数量</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_items.each do |item| %>
+      <tr>
+        <td><%= item.item.name %></td>
+        <td><%= item.item.with_tax_price %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.subtotal %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "一覧に戻る", admin_orders_path %>

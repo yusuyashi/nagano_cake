@@ -1,1 +1,22 @@
-<h1>管理者側トップページ</h1>
+<h1>管理者トップページ</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>注文日</th>
+      <th>購入者</th>
+      <th>注文個数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.created_at %></td>
+        <td><%= order.customer.full_name %></td>
+        <td><%= order.order_details.sum(:quantity) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @orders %>
