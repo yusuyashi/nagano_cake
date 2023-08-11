@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>注文日</th>
+      <th>注文日時</th>
       <th>購入者</th>
       <th>注文個数</th>
     </tr>
@@ -11,7 +11,7 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.created_at %></td>
+        <td><%= link_to order.created_at, admin_order_path(order) %></td>
         <td><%= order.customer.full_name %></td>
         <td><%= order.order_details.sum(:quantity) %></td>
       </tr>
@@ -20,3 +20,4 @@
 </table>
 
 <%= paginate @orders %>
+

@@ -1,6 +1,6 @@
 class Admin::OrderDetailsController < ApplicationController
    before_action :set_order_detail, only: [:show, :edit, :update, :destroy]
-  
+
   def show
     # 特定の注文詳細を表示するためのアクション
   end

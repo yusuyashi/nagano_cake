@@ -17,15 +17,15 @@
     </tr>
   </thead>
   <tbody>
-    <% @order.order_items.each do |item| %>
-      <tr>
-        <td><%= item.item.name %></td>
-        <td><%= item.item.with_tax_price %></td>
-        <td><%= item.quantity %></td>
-        <td><%= item.subtotal %></td>
-      </tr>
-    <% end %>
+  <% @order.order_details.each do |detail| %>
+  <tr>
+    <td><%= detail.item.name %></td>
+    <td><%= detail.item.with_tax_price %></td>
+    <td><%= detail.quantity %></td>
+    <td><%= detail.subtotal %></td>
+  </tr>
+  <% end %>
   </tbody>
 </table>
 
-<%= link_to "一覧に戻る", admin_orders_path %>
+

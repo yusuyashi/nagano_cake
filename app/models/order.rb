@@ -3,4 +3,12 @@ class Order < ApplicationRecord
   
   belongs_to :customer
   has_many :order_details
+  
+  before_validation :set_default_payment_method
+
+  private
+
+  def set_default_payment_method
+    self.payment_method ||= 'credit_card'
+  end
 end
