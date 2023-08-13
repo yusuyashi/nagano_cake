@@ -1,3 +1,33 @@
 <h1>会員側注文詳細</h1>
 <p>注文ID: <%= @order.id %></p>
 <p>購入日時: <%= @order.created_at %></p>
+<p><strong>配送先住所:</strong> <%= @order.shipping_address %></p>
+<p><strong>購入者:</strong> <%= @order.customer.full_name %></p>
+<p><strong>支払い方法:</strong> <%= @order.payment_method %></p>
+
+<p><strong>商品合計:</strong> <%= @order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } %></p>
+<p><strong>配送料:</strong> <%= @order.shipping_fee %></p>
+<p><strong>ご請求金額:</strong> <%= @order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } + @order.shipping_fee %></p>
+
+<h2>注文内容</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>個数</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_details.each do |detail| %>
+      <tr>
+        <td><%= detail.item.name %></td>
+        <td><%= detail.item.with_tax_price %></td>
+        <td><%= detail.quantity %></td>
+        <td><%= detail.subtotal %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

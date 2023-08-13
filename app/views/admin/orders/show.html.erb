@@ -1,7 +1,7 @@
 <h1>管理者側注文詳細</h1>
 <p>注文ID: <%= @order.id %></p>
 <p>購入日時: <%= @order.created_at %></p>
-<p><strong>購入者:</strong> <%= @order.customer.full_name %></p>
+<p><strong>購入者:</strong> <%= link_to @order.customer.full_name, admin_customer_path(@order.customer) %></p>
 <p><strong>配送先住所:</strong> <%= @order.shipping_address %></p>
 <p><strong>支払い方法:</strong> <%= @order.payment_method %></p>
 
@@ -28,4 +28,6 @@
   </tbody>
 </table>
 
-
+<p><strong>商品合計:</strong> <%= @order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } %></p>
+<p><strong>送料:</strong> <%= @order.shipping_fee %></p>
+<p><strong>請求金額合計:</strong> <%= @order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } + @order.shipping_fee %></p>

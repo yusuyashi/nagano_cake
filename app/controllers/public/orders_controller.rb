@@ -20,7 +20,7 @@ class Public::OrdersController < ApplicationController
   @order.customer_id = current_customer.id
   @order.shipping_address = params[:order][:shipping_address]
   @order.payment_method = params[:order][:payment_method]
-  
+
   if @order.save
     # 2. カート内の合計金額から請求金額を算出
     total_amount = current_customer.cart_items.sum { |item| item.item.price * item.quantity }
@@ -54,7 +54,7 @@ class Public::OrdersController < ApplicationController
    @order.shipping_postal_code = current_customer.postal_code
    @order.shipping_address = current_customer.address
    @order.shipping_name = current_customer.full_name
-   @shipping_fee = 500
+   @shipping_fee = 800
 
    @cart_items = current_customer.cart_items
   end
