@@ -1,25 +1,31 @@
-<h2>商品一覧</h2>
-
-<%= link_to "新規登録", new_admin_item_path, class: "btn btn-primary" %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>商品ID</th>
-      <th>商品名</th>
-      <th>説明</th>
-      <th>価格</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %>
+<div class="container mt-5">
+  <div class="row justify-content-between mb-3">
+    <div class="col-md-6">
+      <h2>商品一覧</h2>
+    </div>
+    <div class="col-md-2 text-right">
+      <%= link_to "＋", new_admin_item_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+  
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= item.id %></td>
-        <td><%= link_to item.name, edit_admin_item_path(item) %></td>
-        <td><%= item.introduction %></td>
-        <td><%= item.price %></td>
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>価格</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= paginate @items %>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= link_to item.name, admin_item_path(item) %></td>
+          <td><%= item.price %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <%= paginate @items %>
+</div>

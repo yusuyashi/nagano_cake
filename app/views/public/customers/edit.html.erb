@@ -1,54 +1,71 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">会員情報編集</div>
+        <div class="card-body">
+
 <%= form_for(@customer, url: public_update_customer_path, method: :patch) do |f| %>
   <%= render "public/shared/error_messages", resource: @customer %>
 
   
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name, autocomplete: "family-name" %>
+  <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :last_name, "名前（姓）" %><br/>
+                  <%= f.text_field :last_name, autocomplete: "family-name", class: "form-control" %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :first_name, "名前（名）" %><br/>
+                  <%= f.text_field :first_name, autocomplete: "given-name", class: "form-control" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :last_name_kana, "フリガナ（セイ）" %><br/>
+                  <%= f.text_field :last_name_kana, class: "form-control" %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.label :first_name_kana, "フリガナ（メイ）" %><br/>
+                  <%= f.text_field :first_name_kana, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :postal_code, "郵便番号" %><br/>
+              <%= f.text_field :postal_code, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :address, "住所" %><br/>
+              <%= f.text_field :address, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :telephone_number, "電話番号" %><br/>
+              <%= f.text_field :telephone_number, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :email, "メールアドレス" %><br/>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+            </div>
+
+<div class="actions d-flex justify-content-between align-items-center">
+              <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+              <%= link_to "退会する", public_customers_confirmation_path, method: :get, data: { confirm: "本当に退会しますか？" }, class: "btn btn-primary withdrawal-button" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name, autocomplete: "given-name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :last_name_kana %><br/>
-    <%= f.text_field :last_name_kana %>
-  </div>
-
-  <div class="field">
-    <%= f.label :first_name_kana %><br/>
-    <%= f.text_field :first_name_kana %>
-  </div>
-
-  <div class="field">
-    <%= f.label :postal_code %><br/>
-    <%= f.text_field :postal_code %>
-  </div>
-
-  <div class="field">
-    <%= f.label :address %><br/>
-    <%= f.text_field :address %>
-  </div>
-
-  <div class="field">
-    <%= f.label :telephone_number %><br/>
-    <%= f.text_field :telephone_number %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br/>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit "更新する" %>
-  </div>
-  
-  <%= link_to "退会する", public_customers_confirmation_path, method: :get, data: { confirm: "本当に退会しますか？" }, class: "withdrawal-button" %>
-
-
-
-<% end %>
+</div>

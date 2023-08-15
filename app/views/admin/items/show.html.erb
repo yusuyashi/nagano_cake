@@ -1,14 +1,29 @@
-<h2>商品詳細</h2>
+<div class="container mt-5">
+  <h2>商品詳細</h2>
+  <div class="row">
+    <div class="col-md-4">
+      
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image, class: "img-fluid rounded" %>
+      <% else %>
+        <p>画像がありません</p>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <p><strong>商品名:</strong> <%= @item.name %></p>
+      <p><strong>説明:</strong> <%= @item.introduction %></p>
+      <p>
+        <strong>税込価格（税抜価格）</strong>
+        <%= (@item.price * 1.1).floor %>( <%= @item.price %> )円
+      </p>
+       <%= link_to '編集する', edit_admin_item_path(@item), class: 'btn btn-success' %>
+    </div>
+  </div>
+</div>
 
-<% if @item.image.attached? %>
-  <%= image_tag @item.image %>
-<% else %>
-  <p>画像がありません</p>
-<% end %>
+<style>
+  .small-image {
+    max-width: 200px; /* 任意のサイズに調整 */
+  }
+</style>
 
-<p><strong>商品名:</strong> <%= @item.name %></p>
-<p><strong>説明:</strong> <%= @item.introduction %></p>
-<p><strong>税込価格:</strong> <%= @item.price %></p>
-
-
-<%= link_to '編集', edit_admin_item_path(@item) %>
