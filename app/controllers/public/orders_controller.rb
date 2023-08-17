@@ -55,8 +55,9 @@ class Public::OrdersController < ApplicationController
    @order.shipping_address = current_customer.address
    @order.shipping_name = current_customer.full_name
    @shipping_fee = 800
-
+  
    @cart_items = current_customer.cart_items
+   
   end
 
 

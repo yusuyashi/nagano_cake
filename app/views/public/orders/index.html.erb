@@ -1,25 +1,30 @@
-<h1>注文履歴一覧</h1>
+<div class="container">
+  <h1>注文履歴一覧</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>購入日時</th>
-      <th>配送先</th>
-      
-      <th>支払い金額</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <td><%= order.created_at %></td>
-        <td><%= order.shipping_address %></td>
-        
-        <td><%= order.total_amount %> 円</td>
-        <td><%= link_to '詳細', public_order_path(order) %></td>
+        <th>購入日時</th>
+        <th>配送先</th>
+        <th>支払い金額</th>
+        <th>詳細</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.created_at %></td>
+          <td>
+              <%= order.shipping_postal_code %><br>
+              <%= order.shipping_address %><br>
+              <%= order.customer.full_name %>
+          </td>
+          <td><%= order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } + order.shipping_fee %>円</td>
+          <td><%= link_to '表示する', public_order_path(order), class: 'btn btn-primary' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= paginate @orders %>
+  <%= paginate @orders %>
+</div>

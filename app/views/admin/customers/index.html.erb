@@ -1,5 +1,4 @@
 <div class="container text-center">
-  
   <div class="text-left">
     <h2>会員一覧</h2>
   </div>
@@ -10,14 +9,24 @@
         <th>会員ID</th>
         <th>氏名</th>
         <th>メールアドレス</th>
+        <th>ステータス</th>
       </tr>
     </thead>
     <tbody>
       <% @customers.each do |customer| %>
         <tr>
           <td><%= customer.id %></td>
-          <td class="text-center"><%= link_to "#{customer.last_name} #{customer.first_name}", admin_customer_path(customer) %></td>
+         <td class="text-center">
+          <%= link_to "#{customer.last_name} #{customer.first_name}", admin_customer_path(customer) %>
+         </td>
           <td class="text-center"><%= customer.email %></td>
+      <td class="text-center">
+        <% if customer.is_deleted %>
+          <span class="text-danger">退会</span>
+        <% else %>
+          <span class="text-success">有効</span>
+        <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

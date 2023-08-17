@@ -1,33 +1,73 @@
-<h1>会員側注文詳細</h1>
-<p>注文ID: <%= @order.id %></p>
-<p>購入日時: <%= @order.created_at %></p>
-<p><strong>配送先住所:</strong> <%= @order.shipping_address %></p>
-<p><strong>購入者:</strong> <%= @order.customer.full_name %></p>
-<p><strong>支払い方法:</strong> <%= @order.payment_method %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>会員側注文詳細</h1>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>注文ID</th>
+            <td><%= @order.id %></td>
+          </tr>
+          <tr>
+            <th>購入日時</th>
+            <td><%= @order.created_at %></td>
+          </tr>
+          <tr>
+            <th>配送先住所</th>
+            <td>
+              <%= @order.shipping_postal_code %><br>
+              <%= @order.shipping_address %><br>
+              <%= @order.customer.full_name %>
+          </td>
+          </tr>
+          <tr>
+            <th>支払い方法</th>
+            <td><%= @order.payment_method == 'credit_card' ? 'クレジットカード' : '銀行振込' %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h2>請求情報</h2>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>商品合計</th>
+            <td><%= @order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } %> 円</td>
+          </tr>
+          <tr>
+            <th>配送料</th>
+            <td><%= @order.shipping_fee %> 円</td>
+          </tr>
+          <tr>
+            <th>ご請求金額</th>
+            <td><%= @order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } + @order.shipping_fee %> 円</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<p><strong>商品合計:</strong> <%= @order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } %></p>
-<p><strong>配送料:</strong> <%= @order.shipping_fee %></p>
-<p><strong>ご請求金額:</strong> <%= @order.order_details.sum { |detail| detail.item.with_tax_price * detail.quantity } + @order.shipping_fee %></p>
+  <h2>注文内容</h2>
 
-<h2>注文内容</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>商品名</th>
-      <th>価格</th>
-      <th>個数</th>
-      <th>小計</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order.order_details.each do |detail| %>
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <td><%= detail.item.name %></td>
-        <td><%= detail.item.with_tax_price %></td>
-        <td><%= detail.quantity %></td>
-        <td><%= detail.subtotal %></td>
+        <th>商品名</th>
+        <th>単価(税込)</th>
+        <th>個数</th>
+        <th>小計</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @order.order_details.each do |detail| %>
+        <tr>
+          <td><%= detail.item.name %></td>
+          <td><%= detail.item.with_tax_price %></td>
+          <td><%= detail.quantity %></td>
+          <td><%= detail.subtotal %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
