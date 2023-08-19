@@ -6,7 +6,7 @@ class Public::SessionsController < Devise::SessionsController
   def create
     super do |resource|
       if resource.persisted?
-        redirect_to public_customer_path and return
+        redirect_to root_path and return
       end
     end
   end
@@ -14,17 +14,16 @@ class Public::SessionsController < Devise::SessionsController
   protected
 
 def customer_state
- 
+  
   @customer = Customer.find_by(email: params[:customer][:email])
   
-  return if !@customer
- 
   if @customer.valid_password?(params[:customer][:password])
     if @customer.is_deleted
-      # is_deletedがtrueの場合、サインアップ画面にリダイレクトする
-      redirect_to new_customer_registration_path, alert: "アカウントが退会しています。"
+      # 退会済みアカウントのログインを防ぐため、エラーメッセージを表示
+      flash.now[:alert] = "アカウントが退会しています。"
+      render :new
     else
-      # is_deletedがfalseの場合、createアクションを実行する
+      # 退会していない場合、createアクションを実行する
       create
     end
   else
@@ -33,6 +32,7 @@ def customer_state
     render :new
   end
 end
+
   
   # before_action :configure_sign_in_params, only: [:create]
 

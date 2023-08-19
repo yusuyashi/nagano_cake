@@ -34,3 +34,9 @@
     </div>
   </div>
 </div>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger text-center mt-3">
+    <%= flash[:alert] %>
+  </div>
+<% end %>

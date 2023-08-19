@@ -5,7 +5,7 @@
       <p>購入日時: <%= @order.created_at %></p>
       <p><strong>購入者:</strong> <%= link_to @order.customer.full_name, admin_customer_path(@order.customer) %></p>
       <p><strong>配送先住所:</strong> <%= @order.shipping_address %></p>
-      <p><strong>支払い方法:</strong> <%= @order.payment_method %></p>
+      <p><strong>支払い方法:</strong> <%= @order.payment_method == 'credit_card' ? 'クレジットカード' : '銀行振込' %></p>
       
   <div class="row">
     <div class="col-md-6">
