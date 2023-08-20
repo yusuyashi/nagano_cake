@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   private
 
   def set_default_payment_method
-    self.payment_method ||= 'credit_card'
+    self.payment_method ||= :credit_card if self.payment_method.blank?
   end
 end
+

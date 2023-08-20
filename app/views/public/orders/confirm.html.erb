@@ -51,20 +51,22 @@
   </div>
 
 
-
+  <%= form_with model: @order, url: public_orders_path, method: :post do |f| %>
   <p><strong>支払い方法</strong>  <%= @order.payment_method == 'credit_card' ? 'クレジットカード' : '銀行振込' %></p>
-  
-   
+
+
     <p><strong>お届け先</strong> 郵便番号:<%= current_customer.postal_code %></p>
     <p>住所:   <%= current_customer.address %></p>
     <p>氏名:   <%= current_customer.full_name %></p>
-  <%= form_with model: @order, url: public_orders_path, method: :post do |f| %>
+
+
     <%= f.hidden_field :customer_id, :value => current_customer.id %>
     <%= f.hidden_field :total_amount, :value => sum + @shipping_fee %>
     <%= f.hidden_field :shipping_address, :value => @order.shipping_address %>
     <%= f.hidden_field :shipping_name, :value => @order.shipping_name %>
     <%= f.hidden_field :shipping_postal_code, :value => @order.shipping_postal_code %>
     <%= f.hidden_field :shipping_fee, :value => @shipping_fee %>
+    <%= f.hidden_field :payment_method, :value => @order.payment_method %>
 
     <%= f.submit '注文を確定する', class: "btn btn-primary" %>
   <% end %>

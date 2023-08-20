@@ -1,8 +1,9 @@
 class Public::CartItemsController < ApplicationController
   def index
-    @cart_items = CartItem.all
+    @cart_items = current_customer.cart_items
     @total_price = @cart_items.sum { |cart_item| cart_item.subtotal }
   end
+
   
   def create
   # 1. 追加した商品がカート内に存在するかの判別
@@ -21,7 +22,7 @@ class Public::CartItemsController < ApplicationController
 
   # カートアイテムの保存などの処理を行う（例：カートに追加する）
   if @cart_item.save
-    redirect_to public_cart_items_path, notice: "カートに商品を追加しました。"
+      redirect_to public_cart_items_path, notice: "カートに商品を追加しました。"
   else
     flash[:alert] = "カートに商品を追加できませんでした。数量を選択してください。"
     redirect_to public_item_path(@cart_item.item)

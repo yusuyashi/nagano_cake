@@ -1,19 +1,16 @@
 <div class="container">
   <h1 class="mb-4">注文情報入力</h1>
 
-  <%= form_with(model: @order, url: public_orders_confirm_path, local: true, class: "mb-4") do |f| %>
-    <!-- ここにフォームの記述を行います -->
-
-    
-    <div class="form-group">
+<%= form_with(model: @order, url: public_orders_confirm_path(@order), method: :post, class: "mb-4") do |f| %>
+  <div class="form-group">
     <h5><%= f.label :payment_method, "支払い方法" %></h5>
-      <div class="form-check">
-        <%= f.radio_button :payment_method, "credit_card", class: "form-check-input" %>
-        <%= f.label :payment_method, "クレジットカード", class: "form-check-label" %>
+    <div class="form-check">
+      <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
+        <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
       </div>
       <div class="form-check">
-        <%= f.radio_button :payment_method, "transfer", class: "form-check-input" %>
-        <%= f.label :payment_method, "銀行振込", class: "form-check-label" %>
+        <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+        <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
       </div>
     </div>
 

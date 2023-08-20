@@ -22,7 +22,7 @@
           </tr>
           <tr>
             <th>支払い方法</th>
-            <td><%= @order.payment_method == 'credit_card' ? 'クレジットカード' : '銀行振込' %></td>
+            <td><%= @payment_method_display %></td>
           </tr>
         </tbody>
       </table>

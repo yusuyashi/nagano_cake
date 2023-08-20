@@ -12,15 +12,16 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-     @order = current_customer.orders.find(params[:id])
+   @order = current_customer.orders.find(params[:id])
+   @payment_method_display = @order.payment_method == 'credit_card' ? 'クレジットカード' : '銀行振込'
   end
+
 
   def create
   @order = Order.new(order_params)
   @order.customer_id = current_customer.id
   @order.shipping_address = params[:order][:shipping_address]
   @order.payment_method = params[:order][:payment_method]
-
   if @order.save
     # 2. カート内の合計金額から請求金額を算出
     total_amount = current_customer.cart_items.sum { |item| item.item.price * item.quantity }
@@ -51,19 +52,22 @@ class Public::OrdersController < ApplicationController
 
   def confirm
    @order = Order.new(order_params)
+   @order.payment_method = params[:order][:payment_method]
    @order.shipping_postal_code = current_customer.postal_code
    @order.shipping_address = current_customer.address
    @order.shipping_name = current_customer.full_name
    @shipping_fee = 800
-  
    @cart_items = current_customer.cart_items
-   
+   @sum = @cart_items.sum { |cart_item| cart_item.item.with_tax_price * cart_item.quantity }
+
+
   end
 
 
   def complete
 
   end
+
 
 
 

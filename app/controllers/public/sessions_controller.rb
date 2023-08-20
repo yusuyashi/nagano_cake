@@ -3,7 +3,17 @@
 class Public::SessionsController < Devise::SessionsController
   before_action :customer_state, only: [:create]
   
+    
   def create
+    email = params[:customer][:email]
+    password = params[:customer][:password]
+
+    if email.blank? || password.blank?
+      flash.now[:alert] = "メールアドレスとパスワードを入力してください。"
+      render :new
+      return
+    end
+
     super do |resource|
       if resource.persisted?
         redirect_to root_path and return
@@ -13,25 +23,32 @@ class Public::SessionsController < Devise::SessionsController
 
   protected
 
-def customer_state
-  
-  @customer = Customer.find_by(email: params[:customer][:email])
-  
-  if @customer.valid_password?(params[:customer][:password])
-    if @customer.is_deleted
-      # 退会済みアカウントのログインを防ぐため、エラーメッセージを表示
-      flash.now[:alert] = "アカウントが退会しています。"
+  def customer_state
+    email = params[:customer][:email]
+    password = params[:customer][:password]
+
+    if email.blank? || password.blank?
+      flash.now[:alert] = "メールアドレスとパスワードを入力してください。"
       render :new
-    else
-      # 退会していない場合、createアクションを実行する
-      create
+      return
     end
-  else
-    # ログインに失敗した場合、エラーメッセージを表示
-    flash.now[:alert] = "メールアドレスまたはパスワードが間違っています。"
-    render :new
+
+    @customer = Customer.find_by(email: email)
+
+    if @customer&.valid_password?(password)
+      if @customer.is_deleted
+        flash.now[:alert] = "アカウントが退会しています。"
+        render :new
+      else
+        create
+      end
+    else
+      flash.now[:alert] = "メールアドレスまたはパスワードが間違っています。"
+      render :new
+    end
   end
-end
+
+
 
   
   # before_action :configure_sign_in_params, only: [:create]
