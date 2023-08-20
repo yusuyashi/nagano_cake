@@ -53,3 +53,14 @@
     </div>
   </div>
 </div>
+
+<% if @item.errors.any? %>
+  <div class="alert alert-danger">
+    <h4><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h4>
+    <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
